@@ -1,0 +1,6 @@
+run = """
+mix local.hex --if-missing --force
+"""
+
+[env]
+LC_ALL = "en_US.UTF-8"
