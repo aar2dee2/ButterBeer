@@ -6,7 +6,11 @@ ButterBeer is a social app and needs a number of database schemas that will stor
 
 1. #### __users__: 
   The basic user schema that will use be used for registration and authentication.
+  
+  
+  `Note` need to see how Supabase auth with Twitter can be used here and if the fields can be pulled from Twitter itself.
 
+  
   Columns will include:
       
       1. id: primary key column (int type)
@@ -45,17 +49,17 @@ Might populate these directly in Supabase, rather than through Phoenix. There ma
   Contains Continent names
 
   Columns will include:
-    1. id: primary key column (int type)
-    2. name: varchar
+      1. id: primary key column (int type)
+      2. name: varchar
 
 
 2. #### __countries__:
   Contains Country names and ISD codes
 
   Columns will include:
-    1. id: primary key column (int type)
-    2. name: varchar 
-    3. continent: links to __continent__ table through continent id
+      1. id: primary key column (int type)
+      2. name: varchar 
+      3. continent: links to __continent__ table through continent id
 
 
 Many-to-many Relationship schemas:
@@ -63,10 +67,10 @@ Many-to-many Relationship schemas:
 #### __followers__:
 
   Columns will include:
-    1. id: 
-    2. user_id: the id of the user who is followed, foreign key relationship with __users__[id]
-    3. follower_id: the id of the user who is following another user: foreign key relationship with __users__[id]
-    4. date_followed: timestamp
+      1. id: 
+      2. user_id: the id of the user who is followed, foreign key relationship with __users__[id]
+      3. follower_id: the id of the user who is following another user: foreign key relationship with __users__[id]
+      4. date_followed: timestamp
 
 #### __likes__:
 
