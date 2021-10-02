@@ -86,4 +86,4 @@ Have updated database credentials as well as port and ip address.
 
 7. Now creating the database. `cd butterbeer_umbrella` and `mix ecto.create`. Enter `Y` when asked to install rebar3.
 
-8. 
+8. Start server with `iex -S mix phx.server` and it's Up and Running!
