@@ -37,6 +37,7 @@ ButterBeer is a social app and needs a number of database schemas that will stor
   not to be in the table: Followers - this will be count of rows from __followers__ table - 
 
   Columns will include:
+
       1. id: link to id in __User__ schema
       2. username: link to username in __User__ schema
       3. Bio
@@ -44,11 +45,13 @@ ButterBeer is a social app and needs a number of database schemas that will stor
 
 Geographical info schemas:
 Might populate these directly in Supabase, rather than through Phoenix. There may be existing csv that I can import and upload directly.
+`Note` might be better to use an API such as Google Maps API for this, so when more granular data is needed (such as cities, neighbourhoods etc) the database is not populated with redundant data that is available publicly.
 
 1. #### __continents__:
   Contains Continent names
 
   Columns will include:
+
       1. id: primary key column (int type)
       2. name: varchar
 
@@ -57,6 +60,7 @@ Might populate these directly in Supabase, rather than through Phoenix. There ma
   Contains Country names and ISD codes
 
   Columns will include:
+
       1. id: primary key column (int type)
       2. name: varchar 
       3. continent: links to __continent__ table through continent id
@@ -67,6 +71,7 @@ Many-to-many Relationship schemas:
 #### __followers__:
 
   Columns will include:
+  
       1. id: 
       2. user_id: the id of the user who is followed, foreign key relationship with __users__[id]
       3. follower_id: the id of the user who is following another user: foreign key relationship with __users__[id]
