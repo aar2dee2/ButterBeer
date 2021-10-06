@@ -20,5 +20,5 @@ defmodule ButterbeerWeb.Gettext do
 
   See the [Gettext Docs](https://hexdocs.pm/gettext) for detailed usage.
   """
-  use Gettext, otp_app: :butterbeer_web
+  use Gettext, otp_app: :butterbeer
 end

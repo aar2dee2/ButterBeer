@@ -1,4 +1,4 @@
-defmodule ButterbeerWeb.Application do
+defmodule Butterbeer.Application do
   # See https://hexdocs.pm/elixir/Application.html
   # for more information on OTP Applications
   @moduledoc false
@@ -8,17 +8,21 @@ defmodule ButterbeerWeb.Application do
   @impl true
   def start(_type, _args) do
     children = [
+      # Start the Ecto repository
+      Butterbeer.Repo,
       # Start the Telemetry supervisor
       ButterbeerWeb.Telemetry,
+      # Start the PubSub system
+      {Phoenix.PubSub, name: Butterbeer.PubSub},
       # Start the Endpoint (http/https)
       ButterbeerWeb.Endpoint
-      # Start a worker by calling: ButterbeerWeb.Worker.start_link(arg)
-      # {ButterbeerWeb.Worker, arg}
+      # Start a worker by calling: Butterbeer.Worker.start_link(arg)
+      # {Butterbeer.Worker, arg}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options
-    opts = [strategy: :one_for_one, name: ButterbeerWeb.Supervisor]
+    opts = [strategy: :one_for_one, name: Butterbeer.Supervisor]
     Supervisor.start_link(children, opts)
   end
 

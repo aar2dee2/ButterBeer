@@ -1,13 +1,13 @@
 defmodule ButterbeerWeb.Endpoint do
-  use Phoenix.Endpoint, otp_app: :butterbeer_web
+  use Phoenix.Endpoint, otp_app: :butterbeer
 
   # The session will be stored in the cookie and signed,
   # this means its contents can be read but not tampered with.
   # Set :encryption_salt if you would also like to encrypt it.
   @session_options [
     store: :cookie,
-    key: "_butterbeer_web_key",
-    signing_salt: "kfTO4HKp"
+    key: "_butterbeer_key",
+    signing_salt: "SmMdFEcN"
   ]
 
   socket "/live", Phoenix.LiveView.Socket, websocket: [connect_info: [session: @session_options]]
@@ -18,7 +18,7 @@ defmodule ButterbeerWeb.Endpoint do
   # when deploying your static files in production.
   plug Plug.Static,
     at: "/",
-    from: :butterbeer_web,
+    from: :butterbeer,
     gzip: false,
     only: ~w(assets fonts images favicon.ico robots.txt)
 
@@ -28,7 +28,7 @@ defmodule ButterbeerWeb.Endpoint do
     socket "/phoenix/live_reload/socket", Phoenix.LiveReloader.Socket
     plug Phoenix.LiveReloader
     plug Phoenix.CodeReloader
-    plug Phoenix.Ecto.CheckRepoStatus, otp_app: :butterbeer_web
+    plug Phoenix.Ecto.CheckRepoStatus, otp_app: :butterbeer
   end
 
   plug Phoenix.LiveDashboard.RequestLogger,

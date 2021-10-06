@@ -1,17 +1,21 @@
-# This file is responsible for configuring your umbrella
-# and **all applications** and their dependencies with the
-# help of the Config module.
+# This file is responsible for configuring your application
+# and its dependencies with the aid of the Config module.
 #
-# Note that all applications in your umbrella share the
-# same configuration and dependencies, which is why they
-# all use the same configuration file. If you want different
-# configurations or dependencies per app, it is best to
-# move said applications out of the umbrella.
+# This configuration file is loaded before any dependency and
+# is restricted to this project.
+
+# General application configuration
 import Config
 
-# Configure Mix tasks and generators
 config :butterbeer,
   ecto_repos: [Butterbeer.Repo]
+
+# Configures the endpoint
+config :butterbeer, ButterbeerWeb.Endpoint,
+  url: [host: "localhost"],
+  render_errors: [view: ButterbeerWeb.ErrorView, accepts: ~w(html json), layout: false],
+  pubsub_server: Butterbeer.PubSub,
+  live_view: [signing_salt: "eOWGgK3N"]
 
 # Configures the mailer
 #
@@ -25,23 +29,12 @@ config :butterbeer, Butterbeer.Mailer, adapter: Swoosh.Adapters.Local
 # Swoosh API client is needed for adapters other than SMTP.
 config :swoosh, :api_client, false
 
-config :butterbeer_web,
-  ecto_repos: [Butterbeer.Repo],
-  generators: [context_app: :butterbeer]
-
-# Configures the endpoint
-config :butterbeer_web, ButterbeerWeb.Endpoint,
-  url: [host: "localhost"],
-  render_errors: [view: ButterbeerWeb.ErrorView, accepts: ~w(html json), layout: false],
-  pubsub_server: Butterbeer.PubSub,
-  live_view: [signing_salt: "9J0P0y5b"]
-
 # Configure esbuild (the version is required)
 config :esbuild,
   version: "0.12.18",
   default: [
     args: ~w(js/app.js --bundle --target=es2016 --outdir=../priv/static/assets),
-    cd: Path.expand("../apps/butterbeer_web/assets", __DIR__),
+    cd: Path.expand("../assets", __DIR__),
     env: %{"NODE_PATH" => Path.expand("../deps", __DIR__)}
   ]
 

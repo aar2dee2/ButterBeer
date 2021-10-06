@@ -15,16 +15,16 @@ config :butterbeer, Butterbeer.Repo,
 
 # We don't run a server during test. If one is required,
 # you can enable the server option below.
-config :butterbeer_web, ButterbeerWeb.Endpoint,
+config :butterbeer, ButterbeerWeb.Endpoint,
   http: [ip: {127, 0, 0, 1}, port: 4002],
-  secret_key_base: "BdEJpVp55fCEJ7bUcLscJ6Qou4DymFCb6M9XuiBkM0GSHPkIcD0EQJZDbbCVWvKh",
+  secret_key_base: "QEqGej5YxA2Za8EVzNGf4x79ehgYFFNObidT1oh7ndsC3hityCBVOcDPcjdP+jPA",
   server: false
-
-# Print only warnings and errors during test
-config :logger, level: :warn
 
 # In test we don't send emails.
 config :butterbeer, Butterbeer.Mailer, adapter: Swoosh.Adapters.Test
+
+# Print only warnings and errors during test
+config :logger, level: :warn
 
 # Initialize plugs at runtime for faster test compilation
 config :phoenix, :plug_init_mode, :runtime
