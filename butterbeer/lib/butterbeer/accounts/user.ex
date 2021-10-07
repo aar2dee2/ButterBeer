@@ -38,7 +38,7 @@ defmodule Butterbeer.Accounts.User do
     |> validate_password(opts)
     |> validate_required([:username, :first_name, :last_name])
     |> validate_length(:username, min: 2, max: 20)
-    |> unique_constraint(:email, :username)
+    |> unique_constraint(:username)
   end
 
   defp validate_email(changeset) do

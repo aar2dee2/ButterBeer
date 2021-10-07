@@ -16,7 +16,7 @@ In butterbeer/accounts -
 
     In registration_changeset/3, added `:first_name, :last_name, :username` to the cast function, added validate_length for :username and validate_required for :first_name, :last_name and :username. (validate_required for :email and :password is already called in the validate_email and validate_password functions).
 
-    Finally adding a unique_constraint for :email and :username
+    Finally adding a unique_constraint for :username (unique_constraint for :email is already called in validate_email)
 
     This is the updated registration_changeset/3 function:
     ```
@@ -27,7 +27,7 @@ In butterbeer/accounts -
       |> validate_password(opts)
       |> validate_required([:username, :first_name, :last_name])
       |> validate_length(:username, min: 2, max: 20)
-      |> unique_constraint(:email, :username)
+      |> unique_constraint(:username)
     end
     ```
     
