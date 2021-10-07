@@ -17,20 +17,6 @@ In lib/butterbeer/accounts -
     In registration_changeset/3, added `:first_name, :last_name, :username` to the cast function, added validate_length for :username and validate_required for :first_name, :last_name and :username. (validate_required for :email and :password is already called in the validate_email and validate_password functions).
 
     Finally adding a unique_constraint for :username (unique_constraint for :email is already called in validate_email)
-
-    This is the updated registration_changeset/3 function:
-    ```
-      def registration_changeset(user, attrs, opts \\ []) do
-      user
-      |> cast(attrs, [:email, :password, :first_name, :last_name, :username])
-      |> validate_email()
-      |> validate_password(opts)
-      |> validate_required([:username, :first_name, :last_name])
-      |> validate_length(:username, min: 2, max: 20)
-      |> unique_constraint(:username)
-    end
-
-    ```
     
  - user_notifier.ex - 
     Changed the arguments for the from/2 call in the private function deliver/3, the confirmation email template and password reset template.
@@ -111,95 +97,11 @@ In lib/butterbeer/accounts -
     end
     ```
 
-    Updated code:
-
-    ```
-    @doc """
-    Deliver instructions to confirm account.
-    """
-    def deliver_confirmation_instructions(user, url) do
-    deliver(user.email, "Confirmation instructions", """
-
-    ==============================
-
-    Hi #{user.first_name},
-
-    You can confirm your account by visiting the URL below:
-
-    #{url}
-
-    If you didn't create an account with us, please ignore this.
-
-    ==============================
-    """)
-    end
-
-    @doc """
-    Deliver instructions to reset a user password.
-    """
-    def deliver_reset_password_instructions(user, url) do
-    deliver(user.email, "Reset password instructions", """
-
-    ==============================
-
-    Hi #{user.first_name},
-
-    You can reset your password by visiting the URL below:
-
-    #{url}
-
-    If you didn't request this change, please ignore this.
-
-    ==============================
-    """)
-    end
-
-    @doc """
-    Deliver instructions to update a user email.
-    """
-    def deliver_update_email_instructions(user, url) do
-    deliver(user.email, "Update email instructions", """
-
-    ==============================
-
-    Hi #{user.first_name},
-
-    You can change your email by visiting the URL below:
-
-    #{url}
-
-    If you didn't request this change, please ignore this.
-
-    ==============================
-    """)
-    end
-    ```
-
  - user_token.ex - no changes made
 
 In lib/butterbeer - 
  - accounts.ex
-    Adding a get_user_by_username_and_password function
-    
-    ```
-    @doc """
-    Gets a user by username and password.
-
-    ## Examples
-
-        iex> get_user_by_username_and_password("bb_admin", "correct_password")
-        %User{}
-
-        iex> get_user_by_username_and_password("bb_admin", "invalid_password")
-        nil
-
-    """
-    def get_user_by_username_and_password(username, password)
-        when is_binary(username) and is_binary(password) do
-      user = Repo.get_by(User, username: username)
-      if User.valid_password?(user, password), do: user
-    end
-    ```
+    Adding a get_user_by_username_and_password function similar to get_user_by_email_and_password
 
 In test/butterbeer - 
   In support/fixtures/accounts_fixtures.ex, added attributes for :username, :first_name and :last_name
@@ -218,55 +120,15 @@ In test/butterbeer -
 
     ```
 
-    Updated code:
-
-    ```
-      def unique_user_email, do: "user#{System.unique_integer()}@example.com"
-      def valid_user_password, do: "hello world!"
-      def valid_user_username, do: "user#{System.unique_integer()}"
-      def valid_first_name, do: "global"
-      def valid_last_name, do: "chef"
-
-      def valid_user_attributes(attrs \\ %{}) do
-        Enum.into(attrs, %{
-          email: unique_user_email(),
-          password: valid_user_password(),
-          username: valid_user_username(),
-          first_name: valid_first_name(),
-          last_name: valid_last_name(),
-        })
-      end
-
-    ```
-
-
   In `accounts_test.exs`
 
-  Added function `describe "user_by_username_and_password"` to test `get_user_by_username_and_password`
+  - Added function `describe "user_by_username_and_password"` to test `get_user_by_username_and_password/2`
 
-  ```
-  describe "get_user_by_username_and_password/2" do
-      test "does not return the user if the username does not exist" do
-        refute Accounts.get_user_by_username_and_password("unkownuser", "hello world!")
-      end
+  - Edited test  `describe "register_user/1"` - 
+      - in test "requires email and password to be set" also added :username, :first_name and :last_name
+      - added new test "validate username uniqueness"
 
-      test "does not return the user if the password is not valid" do
-        user = user_fixture()
-        refute Accounts.get_user_by_username_and_password(user.username, "invalid")
-      end
-
-      test "returns the user if the username and password are valid" do
-        %{id: id} = user = user_fixture()
-
-        assert %User{id: ^id} =
-                Accounts.get_user_by_username_and_password(user.username, valid_user_password())
-      end
-    end
-  ```
-
-  Edited test  `describe "register_user/1"`
-
-  Original code:
+    Original code:
   ```
   describe "register_user/1" do
     test "requires email and password to be set" do
@@ -314,3 +176,5 @@ In test/butterbeer -
     end
   end
   ```
+
+  
