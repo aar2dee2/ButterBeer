@@ -8,7 +8,7 @@ defmodule Butterbeer.Accounts.UserNotifier do
     email =
       new()
       |> to(recipient)
-      |> from({"MyApp", "contact@example.com"})
+      |> from({"ButterBeerApp", "hello@butterbeerapp.com"})
       |> subject(subject)
       |> text_body(body)
 
@@ -25,7 +25,7 @@ defmodule Butterbeer.Accounts.UserNotifier do
 
     ==============================
 
-    Hi #{user.email},
+    Hi #{user.first_name},
 
     You can confirm your account by visiting the URL below:
 
@@ -45,7 +45,7 @@ defmodule Butterbeer.Accounts.UserNotifier do
 
     ==============================
 
-    Hi #{user.email},
+    Hi #{user.first_name},
 
     You can reset your password by visiting the URL below:
 
@@ -65,7 +65,7 @@ defmodule Butterbeer.Accounts.UserNotifier do
 
     ==============================
 
-    Hi #{user.email},
+    Hi #{user.first_name},
 
     You can change your email by visiting the URL below:
 
