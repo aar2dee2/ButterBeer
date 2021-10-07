@@ -1,12 +1,10 @@
-## Documentation on creating the app
-
-### Generating Authentication support
+## Generating Authentication support
 
 Used `mix phx.gen.auth Accounts User users` to create an Accounts context with a `User` module and `users` schema.
 
 The default fields in the users schema are `email`, `password`, `hashed_password` and `confirmed_at`. Adding three new fields: `username`, `first_name` and `last_name`. Editing the following files:
 
-In lib/butterbeer/accounts - 
+### In lib/butterbeer/accounts - 
  - user.ex: added the following in schema 'users'
     ```
     field :first_name, :string, null: false
@@ -99,12 +97,12 @@ In lib/butterbeer/accounts -
 
  - user_token.ex - no changes made
 
-In lib/butterbeer - 
+### In lib/butterbeer - 
  - accounts.ex
-    Adding a get_user_by_username_and_password function similar to get_user_by_email_and_password
+    - Adding a get_user_by_username_and_password function similar to get_user_by_email_and_password
 
-In test/butterbeer - 
-  In support/fixtures/accounts_fixtures.ex, added attributes for :username, :first_name and :last_name
+### In test/butterbeer - 
+  - In support/fixtures/accounts_fixtures.ex, added attributes for :username, :first_name and :last_name
 
   Original code:
     ```
@@ -120,7 +118,7 @@ In test/butterbeer -
 
     ```
 
-  In `accounts_test.exs`
+  #### In `accounts_test.exs`
 
   - Added function `describe "user_by_username_and_password"` to test `get_user_by_username_and_password/2`
 
@@ -176,5 +174,42 @@ In test/butterbeer -
     end
   end
   ```
+
+## In lib/butterbeer_web/templates
+
+### In ./user_registration/new.html.heex
+
+  Old code:
+
+    ```
+    <h1>Register</h1>
+
+    <.form let={f} for={@changeset} action={Routes.user_registration_path(@conn, :create)}>
+      <%= if @changeset.action do %>
+        <div class="alert alert-danger">
+          <p>Oops, something went wrong! Please check the errors below.</p>
+        </div>
+      <% end %>
+
+      <%= label f, :email %>
+      <%= email_input f, :email, required: true %>
+      <%= error_tag f, :email %>
+
+      <%= label f, :password %>
+      <%= password_input f, :password, required: true %>
+      <%= error_tag f, :password %>
+
+      <div>
+        <%= submit "Register" %>
+      </div>
+    </.form>
+
+    <p>
+      <%= link "Log in", to: Routes.user_session_path(@conn, :new) %> |
+      <%= link "Forgot your password?", to: Routes.user_reset_password_path(@conn, :new) %>
+    </p>
+    ```
+     - Adding fields for :username, :first_name and :last_name
+     `Note:` to improve the template refer [Bootstrap forms](https://getbootstrap.com/docs/4.1/components/forms/)
 
   
