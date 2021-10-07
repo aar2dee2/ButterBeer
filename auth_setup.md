@@ -6,7 +6,7 @@ Used `mix phx.gen.auth Accounts User users` to create an Accounts context with a
 
 The default fields in the users schema are `email`, `password`, `hashed_password` and `confirmed_at`. Adding three new fields: `username`, `first_name` and `last_name`. Editing the following files:
 
-In butterbeer/accounts - 
+In lib/butterbeer/accounts - 
  - user.ex: added the following in schema 'users'
     ```
     field :first_name, :string, null: false
@@ -177,7 +177,7 @@ In butterbeer/accounts -
 
  - user_token.ex - no changes made
 
-In butterbeer - 
+In lib/butterbeer - 
  - accounts.ex
     Adding a get_user_by_username_and_password function
     
@@ -200,3 +200,138 @@ In butterbeer -
       if User.valid_password?(user, password), do: user
     end
     ```
+
+In test/butterbeer - 
+  In support/fixtures/accounts_fixtures.ex, added attributes for :username, :first_name and :last_name
+
+  Original code:
+    ```
+    defmodule Butterbeer.AccountsFixtures do
+      @moduledoc """
+      This module defines test helpers for creating
+      entities via the `Butterbeer.Accounts` context.
+      """
+
+      def unique_user_email, do: "user#{System.unique_integer()}@example.com"
+      def valid_user_password, do: "hello world!"
+
+      def valid_user_attributes(attrs \\ %{}) do
+        Enum.into(attrs, %{
+          email: unique_user_email(),
+          password: valid_user_password()
+        })
+      end
+
+      def user_fixture(attrs \\ %{}) do
+        {:ok, user} =
+          attrs
+          |> valid_user_attributes()
+          |> Butterbeer.Accounts.register_user()
+
+        user
+      end
+
+      def extract_user_token(fun) do
+        {:ok, captured_email} = fun.(&"[TOKEN]#{&1}[TOKEN]")
+        [_, token | _] = String.split(captured_email.text_body, "[TOKEN]")
+        token
+      end
+    end
+    ```
+
+    Updated code:
+
+    ```
+      def unique_user_email, do: "user#{System.unique_integer()}@example.com"
+      def valid_user_password, do: "hello world!"
+      def valid_user_username, do: "user#{System.unique_integer()}"
+      def valid_first_name, do: "global"
+      def valid_last_name, do: "chef"
+
+      def valid_user_attributes(attrs \\ %{}) do
+        Enum.into(attrs, %{
+          email: unique_user_email(),
+          password: valid_user_password(),
+          username: valid_user_username(),
+          first_name: valid_first_name(),
+          last_name: valid_last_name(),
+        })
+      end
+
+    ```
+
+
+  In `accounts_test.exs`
+
+  Added function `describe "user_by_username_and_password"` to test `get_user_by_username_and_password`
+
+  ```
+  describe "get_user_by_username_and_password/2" do
+      test "does not return the user if the username does not exist" do
+        refute Accounts.get_user_by_username_and_password("unkownuser", "hello world!")
+      end
+
+      test "does not return the user if the password is not valid" do
+        user = user_fixture()
+        refute Accounts.get_user_by_username_and_password(user.username, "invalid")
+      end
+
+      test "returns the user if the username and password are valid" do
+        %{id: id} = user = user_fixture()
+
+        assert %User{id: ^id} =
+                Accounts.get_user_by_username_and_password(user.username, valid_user_password())
+      end
+    end
+  ```
+
+  Edited test  `describe "register_user/1"`
+
+  Original code:
+  ```
+  describe "register_user/1" do
+    test "requires email and password to be set" do
+      {:error, changeset} = Accounts.register_user(%{})
+
+      assert %{
+               password: ["can't be blank"],
+               email: ["can't be blank"]
+             } = errors_on(changeset)
+    end
+
+    test "validates email and password when given" do
+      {:error, changeset} = Accounts.register_user(%{email: "not valid", password: "not valid"})
+
+      assert %{
+               email: ["must have the @ sign and no spaces"],
+               password: ["should be at least 12 character(s)"]
+             } = errors_on(changeset)
+    end
+
+    test "validates maximum values for email and password for security" do
+      too_long = String.duplicate("db", 100)
+      {:error, changeset} = Accounts.register_user(%{email: too_long, password: too_long})
+      assert "should be at most 160 character(s)" in errors_on(changeset).email
+      assert "should be at most 72 character(s)" in errors_on(changeset).password
+    end
+
+    test "validates email uniqueness" do
+      %{email: email} = user_fixture()
+      {:error, changeset} = Accounts.register_user(%{email: email})
+      assert "has already been taken" in errors_on(changeset).email
+
+      # Now try with the upper cased email too, to check that email case is ignored.
+      {:error, changeset} = Accounts.register_user(%{email: String.upcase(email)})
+      assert "has already been taken" in errors_on(changeset).email
+    end
+
+    test "registers users with a hashed password" do
+      email = unique_user_email()
+      {:ok, user} = Accounts.register_user(valid_user_attributes(email: email))
+      assert user.email == email
+      assert is_binary(user.hashed_password)
+      assert is_nil(user.confirmed_at)
+      assert is_nil(user.password)
+    end
+  end
+  ```

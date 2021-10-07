@@ -35,6 +35,25 @@ defmodule Butterbeer.AccountsTest do
     end
   end
 
+    describe "get_user_by_username_and_password/2" do
+      test "does not return the user if the username does not exist" do
+        refute Accounts.get_user_by_username_and_password("unkownuser", "hello world!")
+        #check the above line
+      end
+
+      test "does not return the user if the password is not valid" do
+        user = user_fixture()
+        refute Accounts.get_user_by_username_and_password(user.username, "invalid")
+      end
+
+      test "returns the user if the username and password are valid" do
+        %{id: id} = user = user_fixture()
+
+        assert %User{id: ^id} =
+                Accounts.get_user_by_username_and_password(user.username, valid_user_password())
+      end
+    end
+
   describe "get_user!/1" do
     test "raises if id is invalid" do
       assert_raise Ecto.NoResultsError, fn ->
@@ -49,12 +68,15 @@ defmodule Butterbeer.AccountsTest do
   end
 
   describe "register_user/1" do
-    test "requires email and password to be set" do
+    test "requires email, username, first_name, last_name and password to be set" do
       {:error, changeset} = Accounts.register_user(%{})
 
       assert %{
                password: ["can't be blank"],
-               email: ["can't be blank"]
+               email: ["can't be blank"],
+               username: ["can't be blank"],
+               first_name: ["can't be blank"],
+               last_name: ["can't be blank"]
              } = errors_on(changeset)
     end
 
