@@ -4,9 +4,9 @@ defmodule Butterbeer.AccountsFixtures do
   entities via the `Butterbeer.Accounts` context.
   """
 
-  def unique_user_email, do: "user#{System.unique_integer()}@example.com"
+  def unique_user_email, do: "user#{System.unique_integer([:positive])}@example.com"
   def valid_user_password, do: "hello world!"
-  def valid_user_username, do: "user#{System.unique_integer()}"
+  def unique_user_username, do: "user#{System.unique_integer([:positive])}"
   def valid_first_name, do: "global"
   def valid_last_name, do: "chef"
 
@@ -14,7 +14,7 @@ defmodule Butterbeer.AccountsFixtures do
     Enum.into(attrs, %{
       email: unique_user_email(),
       password: valid_user_password(),
-      username: valid_user_username(),
+      username: unique_user_username(),
       first_name: valid_first_name(),
       last_name: valid_last_name(),
     })
