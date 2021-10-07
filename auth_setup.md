@@ -212,4 +212,11 @@ The default fields in the users schema are `email`, `password`, `hashed_password
      - Adding fields for :username, :first_name and :last_name
      `Note:` to improve the template refer [Bootstrap forms](https://getbootstrap.com/docs/4.1/components/forms/)
 
-  
+### In ./user_confirmation - no changes in new.html.heex or edit.html.heex
+
+### In ./user_reset_password - no changes in new.html.heex or edit.html.heex
+
+### In ./user_session- no changes in new.html.heex
+  `Note:` need to update later to accept :username or :email as login options
+
+### In ./user_settings- no changes in edit.html.heex
