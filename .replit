@@ -1,5 +1,5 @@
 run = """
-mix local.hex --if-missing --force
+bash run.sh
 """
 
 [env]

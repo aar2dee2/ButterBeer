@@ -101,8 +101,11 @@ The default fields in the users schema are `email`, `password`, `hashed_password
  - accounts.ex
     - Adding a get_user_by_username_and_password function similar to get_user_by_email_and_password
 
-### In test/butterbeer - 
-  - In support/fixtures/accounts_fixtures.ex, added attributes for :username, :first_name and :last_name
+## In test/butterbeer - 
+
+###  - In support/fixtures/accounts_fixtures.ex
+
+Added attributes for :username, :first_name and :last_name
 
   Original code:
     ```
@@ -175,7 +178,35 @@ The default fields in the users schema are `email`, `password`, `hashed_password
   end
   ```
 
+### In butterbeer_web/controllers - 
+
+#### ./user_auth_test.exs - no changes
+#### ./user_confirmation_controller_test.exs - no changes
+#### ./user_registration_controller_test.exs - no changes
+#### ./user_reset_password_controller_test.exs - no changes
+#### ./user_session_controller_test.exs - no changes
+#### ./user_settings_controller_test.exs - no changes
+
+
 ## In lib/butterbeer_web/templates
+## In ./layout/_user_menu.html.heex - 
+
+Original code
+```
+<ul>
+<%= if @current_user do %>
+  <li><%= @current_user.email %></li>
+  <li><%= link "Settings", to: Routes.user_settings_path(@conn, :edit) %></li>
+  <li><%= link "Log out", to: Routes.user_session_path(@conn, :delete), method: :delete %></li>
+<% else %>
+  <li><%= link "Register", to: Routes.user_registration_path(@conn, :new) %></li>
+  <li><%= link "Log in", to: Routes.user_session_path(@conn, :new) %></li>
+<% end %>
+</ul>
+
+```
+Replacing `@current_user.email` with `@current_user.username` in line 2
+
 
 ### In ./user_registration/new.html.heex
 
@@ -219,4 +250,70 @@ The default fields in the users schema are `email`, `password`, `hashed_password
 ### In ./user_session- no changes in new.html.heex
   `Note:` need to update later to accept :username or :email as login options
 
-### In ./user_settings- no changes in edit.html.heex
+### In ./user_settings - no changes in edit.html.heex
+
+## In lib/butterbeer_web/controllers
+
+### In ./user_auth.ex - no changes
+
+### In ./user_confirmation.ex - no changes
+
+### In ./user_registration.ex - no changes
+
+### In ./user_reset_password.ex - no changes
+
+### In ./user_session_controller.ex - no changes
+
+`Note:` needs to be edited later to allow login with username and emails
+
+### In ./user_settings_controller.ex - no changes
+
+## In lib/butterbeer_web/views - 
+
+### In ./user_confirmation_view.ex - no changes
+### In ./user_registration_view.ex - no changes
+### In ./user_reset_password_view.ex - no changes
+### In ./user_session_view.ex - no changes
+### In ./user_settings_view.ex - no changes
+
+## In lib/butterbeer_web/router.ex - no changes
+
+## Editing migration file in butterbeer/priv/migrations
+
+Original code:
+```
+defmodule Butterbeer.Repo.Migrations.CreateUsersAuthTables do
+  use Ecto.Migration
+
+  def change do
+    execute "CREATE EXTENSION IF NOT EXISTS citext", ""
+
+    create table(:users) do
+      add :email, :citext, null: false
+      add :hashed_password, :string, null: false
+      add :confirmed_at, :naive_datetime
+      timestamps()
+    end
+
+    create unique_index(:users, [:email])
+
+    create table(:users_tokens) do
+      add :user_id, references(:users, on_delete: :delete_all), null: false
+      add :token, :binary, null: false
+      add :context, :string, null: false
+      add :sent_to, :string
+      timestamps(updated_at: false)
+    end
+
+    create index(:users_tokens, [:user_id])
+    create unique_index(:users_tokens, [:context, :token])
+  end
+end
+
+```
+
+Commenting out the line to `execute "CREATE EXTENSION IF NOT EXISTS citext", ""` as 'citext' has been enabled as an extension directly in the Supabase UI.
+
+Also, creating unique_index with :username, instead of :email
+
+Migrating with `mix ecto.migrate`
