@@ -1,3 +1,4 @@
+<link phx-track-static rel="stylesheet" href={Routes.static_path(@conn, "/assets/app.css")}/>
 <h1>Log in</h1>
 
 <.form let={f} for={@conn} action={Routes.user_session_path(@conn, :create)} as={:user}>
@@ -16,7 +17,7 @@
   <%= label f, :remember_me, "Keep me logged in for 60 days" %>
   <%= checkbox f, :remember_me %>
 
-  <div>
+  <div class="button-login">
     <%= submit "Log in" %>
   </div>
 </.form>

@@ -1,6 +1,27 @@
 /* This file is for your main application CSS */
 @import "./phoenix.css";
 
+.background {
+  background-color: #121212;
+  color: white;
+}
+.overlay-1 {
+  text-align: center;
+  border: 1px solid #e3e3e3;
+  background: #1f1b24;
+  border-radius: 6px;
+  padding: 3em 3em 1em;
+  margin-bottom: 3rem;
+  font-weight: 200;
+  font-size: 120%;
+  elevation: 1dp;
+}
+
+.button-login {
+  background-color: bb86fc;
+  color: white;
+  tex-align: center;
+}
 /* Alerts and form errors used by phx.new */
 .alert {
   padding: 15px;
