@@ -13,3 +13,10 @@ DB schemas in the Tag context:
     - is_parent: boolean
     - is_child: boolean
     - alias - array? (e.g. Asian and Pan-Asian)
+
+2. `dining_options` - options include `dine-in, takeaway, delivery`
+    - 
+
+3. `dining_types` - options like `restaurant, cafe, bar, `
+
+4. `suitability` - options like `child_friendly, pet_friendly, wheelchair_accessible`
