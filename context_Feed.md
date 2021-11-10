@@ -25,3 +25,6 @@ DB schemas in the `Feed` context:
     - downvoted_by:references:users
 
 4. 
+
+## To-dos:
+Check if I can show the post with the Google Maps link (View on Maps button on post when it appears in the Feed)
