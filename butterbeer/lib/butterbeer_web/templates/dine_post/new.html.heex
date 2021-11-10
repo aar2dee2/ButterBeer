@@ -1,0 +1,5 @@
+<h1>New Dine post</h1>
+
+<%= render "form.html", Map.put(assigns, :action, Routes.dine_post_path(@conn, :create)) %>
+
+<span><%= link "Back", to: Routes.dine_post_path(@conn, :index) %></span>
