@@ -63,4 +63,20 @@ defmodule Butterbeer.LocationFixtures do
 
     neighborhood
   end
+
+  @doc """
+  Generate a place.
+  """
+  def place_fixture(attrs \\ %{}) do
+    {:ok, place} =
+      attrs
+      |> Enum.into(%{
+        google_maps_link: "some google_maps_link",
+        name: "some name",
+        url: "some url"
+      })
+      |> Butterbeer.Location.create_place()
+
+    place
+  end
 end

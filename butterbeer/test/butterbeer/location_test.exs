@@ -226,4 +226,62 @@ defmodule Butterbeer.LocationTest do
       assert %Ecto.Changeset{} = Location.change_neighborhood(neighborhood)
     end
   end
+
+  describe "places" do
+    alias Butterbeer.Location.Place
+
+    import Butterbeer.LocationFixtures
+
+    @invalid_attrs %{google_maps_link: nil, name: nil, url: nil}
+
+    test "list_places/0 returns all places" do
+      place = place_fixture()
+      assert Location.list_places() == [place]
+    end
+
+    test "get_place!/1 returns the place with given id" do
+      place = place_fixture()
+      assert Location.get_place!(place.id) == place
+    end
+
+    test "create_place/1 with valid data creates a place" do
+      valid_attrs = %{google_maps_link: "some google_maps_link", name: "some name", url: "some url"}
+
+      assert {:ok, %Place{} = place} = Location.create_place(valid_attrs)
+      assert place.google_maps_link == "some google_maps_link"
+      assert place.name == "some name"
+      assert place.url == "some url"
+    end
+
+    test "create_place/1 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = Location.create_place(@invalid_attrs)
+    end
+
+    test "update_place/2 with valid data updates the place" do
+      place = place_fixture()
+      update_attrs = %{google_maps_link: "some updated google_maps_link", name: "some updated name", url: "some updated url"}
+
+      assert {:ok, %Place{} = place} = Location.update_place(place, update_attrs)
+      assert place.google_maps_link == "some updated google_maps_link"
+      assert place.name == "some updated name"
+      assert place.url == "some updated url"
+    end
+
+    test "update_place/2 with invalid data returns error changeset" do
+      place = place_fixture()
+      assert {:error, %Ecto.Changeset{}} = Location.update_place(place, @invalid_attrs)
+      assert place == Location.get_place!(place.id)
+    end
+
+    test "delete_place/1 deletes the place" do
+      place = place_fixture()
+      assert {:ok, %Place{}} = Location.delete_place(place)
+      assert_raise Ecto.NoResultsError, fn -> Location.get_place!(place.id) end
+    end
+
+    test "change_place/1 returns a place changeset" do
+      place = place_fixture()
+      assert %Ecto.Changeset{} = Location.change_place(place)
+    end
+  end
 end
