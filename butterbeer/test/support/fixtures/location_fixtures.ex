@@ -18,4 +18,19 @@ defmodule Butterbeer.LocationFixtures do
 
     admin_area_one
   end
+
+  @doc """
+  Generate a admin_area_two.
+  """
+  def admin_area_two_fixture(attrs \\ %{}) do
+    {:ok, admin_area_two} =
+      attrs
+      |> Enum.into(%{
+        long_name: "some long_name",
+        short_name: "some short_name"
+      })
+      |> Butterbeer.Location.create_admin_area_two()
+
+    admin_area_two
+  end
 end
