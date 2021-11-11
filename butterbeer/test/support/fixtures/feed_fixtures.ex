@@ -18,4 +18,32 @@ defmodule Butterbeer.FeedFixtures do
 
     dine_post
   end
+
+  @doc """
+  Generate a upvote.
+  """
+  def upvote_fixture(attrs \\ %{}) do
+    {:ok, upvote} =
+      attrs
+      |> Enum.into(%{
+
+      })
+      |> Butterbeer.Feed.create_upvote()
+
+    upvote
+  end
+
+  @doc """
+  Generate a downvote.
+  """
+  def downvote_fixture(attrs \\ %{}) do
+    {:ok, downvote} =
+      attrs
+      |> Enum.into(%{
+
+      })
+      |> Butterbeer.Feed.create_downvote()
+
+    downvote
+  end
 end
