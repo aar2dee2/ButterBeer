@@ -170,4 +170,60 @@ defmodule Butterbeer.LocationTest do
       assert %Ecto.Changeset{} = Location.change_locality(locality)
     end
   end
+
+  describe "neighborhoods" do
+    alias Butterbeer.Location.Neighborhood
+
+    import Butterbeer.LocationFixtures
+
+    @invalid_attrs %{long_name: nil, short_name: nil}
+
+    test "list_neighborhoods/0 returns all neighborhoods" do
+      neighborhood = neighborhood_fixture()
+      assert Location.list_neighborhoods() == [neighborhood]
+    end
+
+    test "get_neighborhood!/1 returns the neighborhood with given id" do
+      neighborhood = neighborhood_fixture()
+      assert Location.get_neighborhood!(neighborhood.id) == neighborhood
+    end
+
+    test "create_neighborhood/1 with valid data creates a neighborhood" do
+      valid_attrs = %{long_name: "some long_name", short_name: "some short_name"}
+
+      assert {:ok, %Neighborhood{} = neighborhood} = Location.create_neighborhood(valid_attrs)
+      assert neighborhood.long_name == "some long_name"
+      assert neighborhood.short_name == "some short_name"
+    end
+
+    test "create_neighborhood/1 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = Location.create_neighborhood(@invalid_attrs)
+    end
+
+    test "update_neighborhood/2 with valid data updates the neighborhood" do
+      neighborhood = neighborhood_fixture()
+      update_attrs = %{long_name: "some updated long_name", short_name: "some updated short_name"}
+
+      assert {:ok, %Neighborhood{} = neighborhood} = Location.update_neighborhood(neighborhood, update_attrs)
+      assert neighborhood.long_name == "some updated long_name"
+      assert neighborhood.short_name == "some updated short_name"
+    end
+
+    test "update_neighborhood/2 with invalid data returns error changeset" do
+      neighborhood = neighborhood_fixture()
+      assert {:error, %Ecto.Changeset{}} = Location.update_neighborhood(neighborhood, @invalid_attrs)
+      assert neighborhood == Location.get_neighborhood!(neighborhood.id)
+    end
+
+    test "delete_neighborhood/1 deletes the neighborhood" do
+      neighborhood = neighborhood_fixture()
+      assert {:ok, %Neighborhood{}} = Location.delete_neighborhood(neighborhood)
+      assert_raise Ecto.NoResultsError, fn -> Location.get_neighborhood!(neighborhood.id) end
+    end
+
+    test "change_neighborhood/1 returns a neighborhood changeset" do
+      neighborhood = neighborhood_fixture()
+      assert %Ecto.Changeset{} = Location.change_neighborhood(neighborhood)
+    end
+  end
 end

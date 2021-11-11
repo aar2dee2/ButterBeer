@@ -48,4 +48,19 @@ defmodule Butterbeer.LocationFixtures do
 
     locality
   end
+
+  @doc """
+  Generate a neighborhood.
+  """
+  def neighborhood_fixture(attrs \\ %{}) do
+    {:ok, neighborhood} =
+      attrs
+      |> Enum.into(%{
+        long_name: "some long_name",
+        short_name: "some short_name"
+      })
+      |> Butterbeer.Location.create_neighborhood()
+
+    neighborhood
+  end
 end
