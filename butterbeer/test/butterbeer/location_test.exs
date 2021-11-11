@@ -3,16 +3,16 @@ defmodule Butterbeer.LocationTest do
 
   alias Butterbeer.Location
 
-  describe "areas_level_1" do
+  describe "areas_level_one" do
     alias Butterbeer.Location.AdminAreaOne
 
     import Butterbeer.LocationFixtures
 
-    @invalid_attrs %{long_naname: nil, short_name: nil}
+    @invalid_attrs %{long_name: nil, short_name: nil}
 
-    test "list_areas_level_1/0 returns all areas_level_1" do
+    test "list_areas_level_one/0 returns all areas_level_one" do
       admin_area_one = admin_area_one_fixture()
-      assert Location.list_areas_level_1() == [admin_area_one]
+      assert Location.list_areas_level_one() == [admin_area_one]
     end
 
     test "get_admin_area_one!/1 returns the admin_area_one with given id" do
@@ -21,10 +21,10 @@ defmodule Butterbeer.LocationTest do
     end
 
     test "create_admin_area_one/1 with valid data creates a admin_area_one" do
-      valid_attrs = %{long_naname: "some long_naname", short_name: "some short_name"}
+      valid_attrs = %{long_name: "some long_name", short_name: "some short_name"}
 
       assert {:ok, %AdminAreaOne{} = admin_area_one} = Location.create_admin_area_one(valid_attrs)
-      assert admin_area_one.long_naname == "some long_naname"
+      assert admin_area_one.long_name == "some long_name"
       assert admin_area_one.short_name == "some short_name"
     end
 
@@ -34,10 +34,10 @@ defmodule Butterbeer.LocationTest do
 
     test "update_admin_area_one/2 with valid data updates the admin_area_one" do
       admin_area_one = admin_area_one_fixture()
-      update_attrs = %{long_naname: "some updated long_naname", short_name: "some updated short_name"}
+      update_attrs = %{long_name: "some updated long_name", short_name: "some updated short_name"}
 
       assert {:ok, %AdminAreaOne{} = admin_area_one} = Location.update_admin_area_one(admin_area_one, update_attrs)
-      assert admin_area_one.long_naname == "some updated long_naname"
+      assert admin_area_one.long_name == "some updated long_name"
       assert admin_area_one.short_name == "some updated short_name"
     end
 

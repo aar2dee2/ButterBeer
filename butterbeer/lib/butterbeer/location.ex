@@ -9,15 +9,15 @@ defmodule Butterbeer.Location do
   alias Butterbeer.Location.AdminAreaOne
 
   @doc """
-  Returns the list of areas_level_1.
+  Returns the list of areas_level_one.
 
   ## Examples
 
-      iex> list_areas_level_1()
+      iex> list_areas_level_one()
       [%AdminAreaOne{}, ...]
 
   """
-  def list_areas_level_1 do
+  def list_areas_level_one do
     Repo.all(AdminAreaOne)
   end
 

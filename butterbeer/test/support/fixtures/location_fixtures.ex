@@ -11,7 +11,7 @@ defmodule Butterbeer.LocationFixtures do
     {:ok, admin_area_one} =
       attrs
       |> Enum.into(%{
-        long_naname: "some long_naname",
+        long_name: "some long_name",
         short_name: "some short_name"
       })
       |> Butterbeer.Location.create_admin_area_one()

@@ -14,14 +14,14 @@ Command used `mix phx.gen.html Feed DinePost dineposts place_id:references:place
 
 DB schemas in the `Feed` context:
 
-1. `areas_level_1` - admin_area_level_1 in the Places [address_components_types](https://developers.google.com/maps/documentation/javascript/geocoding#GeocodingAddressTypes) array
+1. `areas_level_one` - admin_area_level_1 in the Places [address_components_types](https://developers.google.com/maps/documentation/javascript/geocoding#GeocodingAddressTypes) array
     - country_id:references:countries
     - long_name:string
-    - created_at:naive_datetime
     - short_name:string
     - unique_id: long_name_country_id
+    
 2. `areas_level_2` - admin_area_level_2 in the Places [address_components_types](https://developers.google.com/maps/documentation/javascript/geocoding#GeocodingAddressTypes) array
-    - area_level_1:references:areas_level_1
+    - area_level_1:references:areas_level_one
     - long_name:string
     - short_name:string
     - created_at:naive_datetime
