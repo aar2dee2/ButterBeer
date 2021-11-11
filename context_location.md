@@ -39,5 +39,12 @@ DB schemas in the `Feed` context:
     - locality:references:localities
     - unique_id: long_name_locality
 
+5. `places`
+    - name:string
+    - website:string
+    - maps_link:string
+    - neighborhood:references:neighborhoods
+    - unique_id:name_neighborhood
+    
 ## To-dos:
 Check if I can show the post with the Google Maps link (View on Maps button on post when it appears in the Feed)
