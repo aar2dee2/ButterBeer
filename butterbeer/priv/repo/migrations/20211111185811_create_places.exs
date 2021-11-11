@@ -12,6 +12,6 @@ defmodule Butterbeer.Repo.Migrations.CreatePlaces do
     end
 
     create index(:places, [:neighborhood])
-    create unique_index(:places, [:neighborhood, :name], :neighborhood_name)
+    create unique_index(:places, [:neighborhood, :name], name: :neighborhood_name)
   end
 end

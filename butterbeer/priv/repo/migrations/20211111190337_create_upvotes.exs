@@ -11,6 +11,6 @@ defmodule Butterbeer.Repo.Migrations.CreateUpvotes do
 
     create index(:upvotes, [:dinepost_id])
     create index(:upvotes, [:user_id])
-    create unique_index(:upvotes, [:dinepost_id, :user_id], :dinepost_user)
+    create unique_index(:upvotes, [:dinepost_id, :user_id], name: :dinepost_user)
   end
 end

@@ -11,6 +11,6 @@ defmodule Butterbeer.Repo.Migrations.CreateLocalities do
     end
 
     create index(:localities, [:area_level_two])
-    create unique_index(:localities, [:area_level_two, :long_name], :area_level_two_name)
+    create unique_index(:localities, [:area_level_two, :long_name], name: :area_level_two_name)
   end
 end

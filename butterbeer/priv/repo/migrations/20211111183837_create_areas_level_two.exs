@@ -11,6 +11,6 @@ defmodule Butterbeer.Repo.Migrations.CreateAreasLevelTwo do
     end
 
     create index(:areas_level_two, [:area_level_one])
-    create unique_index(:areas_level_two, [:area_level_one, :long_name], :area_level_one_name)
+    create unique_index(:areas_level_two, [:area_level_one, :long_name], name: :area_level_one_name)
   end
 end
