@@ -114,4 +114,60 @@ defmodule Butterbeer.LocationTest do
       assert %Ecto.Changeset{} = Location.change_admin_area_two(admin_area_two)
     end
   end
+
+  describe "localities" do
+    alias Butterbeer.Location.Locality
+
+    import Butterbeer.LocationFixtures
+
+    @invalid_attrs %{long_name: nil, short_name: nil}
+
+    test "list_localities/0 returns all localities" do
+      locality = locality_fixture()
+      assert Location.list_localities() == [locality]
+    end
+
+    test "get_locality!/1 returns the locality with given id" do
+      locality = locality_fixture()
+      assert Location.get_locality!(locality.id) == locality
+    end
+
+    test "create_locality/1 with valid data creates a locality" do
+      valid_attrs = %{long_name: "some long_name", short_name: "some short_name"}
+
+      assert {:ok, %Locality{} = locality} = Location.create_locality(valid_attrs)
+      assert locality.long_name == "some long_name"
+      assert locality.short_name == "some short_name"
+    end
+
+    test "create_locality/1 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = Location.create_locality(@invalid_attrs)
+    end
+
+    test "update_locality/2 with valid data updates the locality" do
+      locality = locality_fixture()
+      update_attrs = %{long_name: "some updated long_name", short_name: "some updated short_name"}
+
+      assert {:ok, %Locality{} = locality} = Location.update_locality(locality, update_attrs)
+      assert locality.long_name == "some updated long_name"
+      assert locality.short_name == "some updated short_name"
+    end
+
+    test "update_locality/2 with invalid data returns error changeset" do
+      locality = locality_fixture()
+      assert {:error, %Ecto.Changeset{}} = Location.update_locality(locality, @invalid_attrs)
+      assert locality == Location.get_locality!(locality.id)
+    end
+
+    test "delete_locality/1 deletes the locality" do
+      locality = locality_fixture()
+      assert {:ok, %Locality{}} = Location.delete_locality(locality)
+      assert_raise Ecto.NoResultsError, fn -> Location.get_locality!(locality.id) end
+    end
+
+    test "change_locality/1 returns a locality changeset" do
+      locality = locality_fixture()
+      assert %Ecto.Changeset{} = Location.change_locality(locality)
+    end
+  end
 end

@@ -197,4 +197,100 @@ defmodule Butterbeer.Location do
   def change_admin_area_two(%AdminAreaTwo{} = admin_area_two, attrs \\ %{}) do
     AdminAreaTwo.changeset(admin_area_two, attrs)
   end
+
+  alias Butterbeer.Location.Locality
+
+  @doc """
+  Returns the list of localities.
+
+  ## Examples
+
+      iex> list_localities()
+      [%Locality{}, ...]
+
+  """
+  def list_localities do
+    Repo.all(Locality)
+  end
+
+  @doc """
+  Gets a single locality.
+
+  Raises `Ecto.NoResultsError` if the Locality does not exist.
+
+  ## Examples
+
+      iex> get_locality!(123)
+      %Locality{}
+
+      iex> get_locality!(456)
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_locality!(id), do: Repo.get!(Locality, id)
+
+  @doc """
+  Creates a locality.
+
+  ## Examples
+
+      iex> create_locality(%{field: value})
+      {:ok, %Locality{}}
+
+      iex> create_locality(%{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def create_locality(attrs \\ %{}) do
+    %Locality{}
+    |> Locality.changeset(attrs)
+    |> Repo.insert()
+  end
+
+  @doc """
+  Updates a locality.
+
+  ## Examples
+
+      iex> update_locality(locality, %{field: new_value})
+      {:ok, %Locality{}}
+
+      iex> update_locality(locality, %{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def update_locality(%Locality{} = locality, attrs) do
+    locality
+    |> Locality.changeset(attrs)
+    |> Repo.update()
+  end
+
+  @doc """
+  Deletes a locality.
+
+  ## Examples
+
+      iex> delete_locality(locality)
+      {:ok, %Locality{}}
+
+      iex> delete_locality(locality)
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def delete_locality(%Locality{} = locality) do
+    Repo.delete(locality)
+  end
+
+  @doc """
+  Returns an `%Ecto.Changeset{}` for tracking locality changes.
+
+  ## Examples
+
+      iex> change_locality(locality)
+      %Ecto.Changeset{data: %Locality{}}
+
+  """
+  def change_locality(%Locality{} = locality, attrs \\ %{}) do
+    Locality.changeset(locality, attrs)
+  end
 end

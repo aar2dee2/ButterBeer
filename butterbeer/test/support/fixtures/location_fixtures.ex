@@ -33,4 +33,19 @@ defmodule Butterbeer.LocationFixtures do
 
     admin_area_two
   end
+
+  @doc """
+  Generate a locality.
+  """
+  def locality_fixture(attrs \\ %{}) do
+    {:ok, locality} =
+      attrs
+      |> Enum.into(%{
+        long_name: "some long_name",
+        short_name: "some short_name"
+      })
+      |> Butterbeer.Location.create_locality()
+
+    locality
+  end
 end
