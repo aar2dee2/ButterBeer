@@ -5,7 +5,7 @@ defmodule Butterbeer.Repo.Migrations.CreateAreasLevel1 do
     create table(:areas_level_one) do
       add :long_name, :string
       add :short_name, :string
-      add :country_id, references(:countries, on_delete: :nothing)
+      add :country_id, references(:countries, on_delete: :nothing, column: :country_id)
 
       timestamps()
     end

@@ -4,3 +4,5 @@
 And gonna migrate till before the upvotes migration using this command `mix ecto.migrate --to 20211111185811`
 
 2. Getting an error in migrated `areas_level_one` have uploaded a screenshot of the error. the error message is  `** (Postgrex.Error) ERROR 42703 (undefined_column) column "id" referenced in foreign key constraint does not exist`
+
+__Fixed this__ Added `column: country_id` to the references call in the change function in the migration file for areas_level_one
