@@ -5,7 +5,7 @@ ButterBeer is a social app and needs a number of database schemas that will stor
 3 User schemas will be used:
 
 1. #### __users__: 
-  The basic user schema that will use be used for registration and authentication.
+  The basic user schema for registration and authentication.
   
   
   `Note` need to see how Supabase auth with Twitter can be used here and if the fields can be pulled from Twitter itself.

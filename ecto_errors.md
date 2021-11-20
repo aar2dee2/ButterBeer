@@ -9,4 +9,7 @@ __Fixed this__ Created a file 202111111190221_create_dineposts.exs before the cr
 
 __Fixed this__ Added `column: country_id` to the references call in the change function in the migration file for areas_level_one
 
+Helpful links: https://elixirforum.com/t/ecto-no-default-id-column-error-42703/14386
+
+
 3. changed name of unique_index of post and user column in the downvotes table from `dinepost_user` to `downvote_dinepost_user` since `dinepost_user` already exists in the upvotes table.
