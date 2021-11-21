@@ -14,7 +14,7 @@ defmodule Butterbeer.Feed.DinePost do
   @doc false
   def changeset(dine_post, attrs) do
     dine_post
-    |> cast(attrs, [:created_at, :description, :place_id])
-    |> validate_required([:created_at, :description, :place_id])
+    |> cast(attrs, [:description, :place_id])
+    |> validate_required([:description, :place_id])
   end
 end
