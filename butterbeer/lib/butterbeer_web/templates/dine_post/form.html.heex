@@ -8,9 +8,9 @@
   <%= label f, :country %>
   <%= select f, :country, Repo.all(from c in "countries", select: c.country_or_area), prompt: "Country" %>
   
-  <%= label f, :created_at %>
-  <%= datetime_select f, :created_at %>
-  <%= error_tag f, :created_at %>
+  <%= label f, :city_and_state %>
+  <%= text_input f, :city_and_state %>
+  <%= error_tag f, :city_and_state %>
 
   <%= label f, :description %>
   <%= text_input f, :description %>
