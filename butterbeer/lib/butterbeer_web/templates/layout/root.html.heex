@@ -26,6 +26,14 @@
         </a>
       </section>
     </header>
+    
+    <!--
+    Need to add API key in the script tag below
+    -->
+    <script async
+    src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places&callback=initMap">
+    </script>
+
     <%= @inner_content %>
   </body>
 </html>
