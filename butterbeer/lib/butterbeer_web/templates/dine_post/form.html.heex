@@ -5,12 +5,13 @@
     </div>
   <% end %>
   
-  <%= label f, :country %>
-  <%= select f, :country, Repo.all(from c in "countries", select: c.country_or_area), prompt: "Country" %>
-  
   <%= label f, :city_and_state %>
   <%= text_input f, :city_and_state %>
   <%= error_tag f, :city_and_state %>
+
+  <%= label f, :place %>
+  <%= text_input f, :place %>
+  <%= error_tag f, :place %>
 
   <%= label f, :description %>
   <%= text_input f, :description %>

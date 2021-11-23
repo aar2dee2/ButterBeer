@@ -1,0 +1,4 @@
+  <!--
+  <%= label f, :country %>
+  <%= select f, :country, Butterbeer.Repo.all(Ecto.Query.from(c in "countries", select: c.country_or_area)), prompt: "Country" %>
+  -->
