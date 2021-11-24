@@ -3,17 +3,19 @@
 <table>
   <thead>
     <tr>
-      <th>Created at</th>
+      <th>Place</th>
       <th>Description</th>
-
-      <th></th>
+      <th>User</th>
+      <th>View on Google Maps</th>
     </tr>
   </thead>
   <tbody>
 <%= for dine_post <- @dineposts do %>
     <tr>
-      <td><%= dine_post.created_at %></td>
+      <td><%= dine_post.place_id %></td>
       <td><%= dine_post.description %></td>
+      <td><%= dine_post.user_id %></td>
+      <td><%= dine_post.url %></td>
 
       <td>
         <span><%= link "Show", to: Routes.dine_post_path(@conn, :show, dine_post) %></span>

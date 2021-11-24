@@ -145,5 +145,6 @@ defmodule ButterbeerWeb.UserAuth do
 
   defp maybe_store_return_to(conn), do: conn
 
-  defp signed_in_path(_conn), do: "/"
+  #changed redirect path from "/" to "/dineposts"
+  defp signed_in_path(_conn), do: "/dineposts"
 end
