@@ -21,6 +21,7 @@ defmodule ButterbeerWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :index
+    live "/feed", FeedLive
     resources "/dineposts", DinePostController
   end
 
