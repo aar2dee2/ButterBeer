@@ -6,7 +6,17 @@
   <% end %>
 
   <script>
+    let autocomplete;
 
+    function initAutocomplete() {
+      autocomplete = new google.maps.places.Autocomplete(
+        document.getElementById("autocomplete"),
+        {
+          types: ["establishment"],
+          fields: ["place_id", "address_component", "name", "url", "formatted_phone_number", "internatioal_phone_number", "website"],
+        }
+      )
+    };
   </script>
   
   <script src={"https://maps.googleapis.com/maps/api/js?key=" <> System.get_env("GOOGLE_API_KEY") <>"&libraries=places&callback=initAutocomplete"} async defer>
@@ -14,7 +24,7 @@
 
 
   <%= label f, :place %>
-  <%= text_input f, :place %>
+  <input id="autocomplete" placeholder="Enter a place" type="text" />
   <%= error_tag f, :place %>
 
   <%= label f, :description %>
