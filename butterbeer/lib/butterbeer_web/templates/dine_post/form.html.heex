@@ -5,6 +5,13 @@
     </div>
   <% end %>
 
+  <script>
+
+  </script>
+  
+  <script src={"https://maps.googleapis.com/maps/api/js?key=" <> System.get_env("GOOGLE_API_KEY") <>"&libraries=places&callback=initAutocomplete"} async defer>
+  </script>
+
 
   <%= label f, :place %>
   <%= text_input f, :place %>
