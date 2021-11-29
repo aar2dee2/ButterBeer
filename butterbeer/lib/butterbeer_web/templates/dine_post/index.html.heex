@@ -28,7 +28,7 @@
 </table>
 
 <span>
-<button type="button">
-<%= link "New Dine post", to: Routes.dine_post_path(@conn, :new) %>
-</button>
+<a href={Routes.dine_post_path(@conn, :new)}>
+  <button type="button">Add a place</button>
+</a>
 </span>
