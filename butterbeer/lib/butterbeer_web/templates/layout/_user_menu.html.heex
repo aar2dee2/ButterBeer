@@ -4,7 +4,15 @@
   <li><%= link "Settings", to: Routes.user_settings_path(@conn, :edit) %></li>
   <li><%= link "Log out", to: Routes.user_session_path(@conn, :delete), method: :delete %></li>
 <% else %>
-  <li><%= link "Register", to: Routes.user_registration_path(@conn, :new) %></li>
-  <li><%= link "Log in", to: Routes.user_session_path(@conn, :new) %></li>
+  <li>
+    <a href={Routes.user_registration_path(@conn, :new)}>
+      <button>Register</button>
+    </a>
+  </li>
+  <li>
+    <a href={Routes.user_session_path(@conn, :new)}>
+      <button>Log In</button>
+    </a>
+  </li>
 <% end %>
 </ul>
