@@ -9,6 +9,15 @@ defmodule Butterbeer.Location do
   alias Butterbeer.Location.AdminAreaOne
 
   @doc """
+  Fetches the country_id from the countries table when country name is provided as input
+  """
+  def get_country_id(name) do
+    query = from c in "countries", select: c.country_id, where: ilike(c.country_or_area, ^name)
+    Repo.all(query) |> Enum.fetch!(0)
+  end
+
+
+  @doc """
   Returns the list of areas_level_one.
 
   ## Examples
