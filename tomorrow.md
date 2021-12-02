@@ -12,3 +12,6 @@
         3. remove edit DinePost option for now - can make all pages except `edit` accessible in the router.ex file
 
 4. Create and add Butter Beer logo
+
+[`.eq()`](https://api.jquery.com/eq-selector/) 
+selector is an index-based selector, i.e. it will return the element matching the index specified. To fetch all rows in a table that have a specific value in a column, use the [.filter()]() method
