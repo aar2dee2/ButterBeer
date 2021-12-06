@@ -26,5 +26,6 @@ defmodule Butterbeer.Feed.DinePost do
   # 5/ Add to places - name, url, google_maps_link, neighborhood (id)
   # 6/ Add to dineposts - description (from form), place_id (refer to places), user_id(refer to user)
   # Most of the above should be covered by existing functions in the Location context.
-  # So first need to fetch correct country_id from countries
+  # So first need to fetch correct country_id from countries - this is done by Location.get_country_id/1
+  # So not all places have localities and neighborhoods information. Infact some have sublocalities instead of localities. To work around this, going to just use the areas_level_one and areas_level_two tables for now. In place, can add a column to reference areas_level_two by id. So filtration will be possible on areas areas_level_one and areas_level_two
 end

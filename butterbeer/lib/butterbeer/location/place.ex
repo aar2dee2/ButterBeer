@@ -8,6 +8,8 @@ defmodule Butterbeer.Location.Place do
     field :url, :string
     field :neighborhood, :id
 
+    belongs_to :area_level_two, Butterbeer.Location.AdminAreaTwo
+
     timestamps()
   end
 
