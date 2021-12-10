@@ -17,5 +17,7 @@ Removed place_id from DinePost.changeset, so the dinepost is now getting added t
 
 was also getting error in the dinepost index template as dinepost.url is not a field. Need to fix this later - connect to the website from the places table for the respective place_id
 
+Replaced input type for place search field in dinepost form.html with "search" instead of "text". No specific reason for doing this, except to just try it out. Search is working fine and there is now a 'x' at the end of the field to clear out the text.
+
 [`.eq()`](https://api.jquery.com/eq-selector/) 
 selector is an index-based selector, i.e. it will return the element matching the index specified. To fetch all rows in a table that have a specific value in a column, use the [.filter()]() method
