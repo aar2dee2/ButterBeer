@@ -7,6 +7,7 @@
 
   <script>
     let autocomplete;
+    let place;
 
     function initAutocomplete() {
       autocomplete = new google.maps.places.Autocomplete(
@@ -15,13 +16,28 @@
           types: ["establishment"],
           fields: ["place_id", "address_component", "name", "url", "formatted_phone_number", "international_phone_number", "website"],
         }
-      )
+      );
+
+      console.log("autocomplete is");
+      console.log(autocomplete);
+
+      autocomplete.addListener("place_changed", () => {
+      place = autocomplete.getPlace();
+      console.log("place is");
+      console.log(place);
+      
+    })
     };
+
+      
+
+    
+      
+      
+
   </script>
   
-  <script src={"https://maps.googleapis.com/maps/api/js?key=" <> System.get_env("GOOGLE_API_KEY") <>"&libraries=places&callback=initAutocomplete"} async defer>
-  </script>
-
+  
 
   <%= label f, :place %>
   <input for="place" id="autocomplete" placeholder="Enter a place" type="search" />
@@ -34,4 +50,8 @@
   <div>
     <%= submit "Save" %>
   </div>
+
+  <script src={"https://maps.googleapis.com/maps/api/js?key=" <> System.get_env("GOOGLE_API_KEY") <>"&libraries=places&callback=initAutocomplete"} async defer>
+  </script>
+
 </.form>

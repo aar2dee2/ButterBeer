@@ -21,3 +21,12 @@ Replaced input type for place search field in dinepost form.html with "search" i
 
 [`.eq()`](https://api.jquery.com/eq-selector/) 
 selector is an index-based selector, i.e. it will return the element matching the index specified. To fetch all rows in a table that have a specific value in a column, use the [.filter()]() method
+
+
+const btn = document.querySelector("button");
+
+      btn.onclick = () => {
+
+      }
+
+      return JSON.stringify(place);
