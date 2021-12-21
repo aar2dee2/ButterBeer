@@ -4,6 +4,8 @@
       <p>Oops, something went wrong! Please check the errors below.</p>
     </div>
   <% end %>
+  
+  <input type="hidden" id="country" name="country">
 
   <script>
     let autocomplete;
@@ -25,15 +27,26 @@
       place = autocomplete.getPlace();
       console.log("place is");
       console.log(place);
-      
-    })
+
+      fillInAddress(place);
+
+    });
     };
 
-      
+    function fillInAddress(place) {
+        console.log("address components are")
+        console.log(place.address_components)
+        for (const component of place.address_components) {
+          const componentType = component.types[0];
 
-    
-      
-      
+          switch (componentType) {
+            case "country":
+              document.querySelector("#country").value = component.long_name;
+              break;
+          }
+        }
+      };
+
 
   </script>
   
@@ -46,6 +59,8 @@
   <%= label f, :description %>
   <%= text_input f, :description %>
   <%= error_tag f, :description %>
+
+  
 
   <div>
     <%= submit "Save" %>
