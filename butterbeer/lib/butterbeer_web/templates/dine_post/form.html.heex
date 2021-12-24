@@ -6,6 +6,13 @@
   <% end %>
   
   <input type="hidden" id="country" name="country">
+  <input type="hidden" id="admin_area_one" name="admin_area_one">
+  <input type="hidden" id="admin_area_two" name="admin_area_two">
+  <input type="hidden" id="locality" name="locality">
+  <input type="hidden" id="neighborhood" name="neighborhood">
+  <input type="hidden" id="place_name" name="place_name">
+  <input type="hidden" id="place_id" name="place_id">
+  <input type="hidden" id="url" name="url">
 
   <script>
     let autocomplete;
@@ -27,9 +34,12 @@
       place = autocomplete.getPlace();
       console.log("place is");
       console.log(place);
+      document.querySelector("#url").value = place.url;
+      document.querySelector("#place_name").value = place.name;
+      document.querySelector("#place_id").value = place.place_id;
 
       fillInAddress(place);
-
+      
     });
     };
 
@@ -42,6 +52,22 @@
           switch (componentType) {
             case "country":
               document.querySelector("#country").value = component.long_name;
+              break;
+
+            case "administrative_area_level_1":
+              document.querySelector("#admin_area_one").value = component.long_name;
+              break;
+
+            case "administrative_area_level_2":
+              document.querySelector("#admin_area_two").value = component.long_name;
+              break;
+
+            case "locality":
+              document.querySelector("#locality").value = component.long_name;
+              break;
+
+            case "neighborhood":
+              document.querySelector("#neighborhood").value = component.long_name;
               break;
           }
         }

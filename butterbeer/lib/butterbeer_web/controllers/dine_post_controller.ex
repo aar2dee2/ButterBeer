@@ -3,6 +3,7 @@ defmodule ButterbeerWeb.DinePostController do
 
   alias Butterbeer.Feed
   alias Butterbeer.Feed.DinePost
+  alias Butterbeer.Location
 
   def index(conn, _params) do
     dineposts = Feed.list_dineposts()
@@ -14,7 +15,10 @@ defmodule ButterbeerWeb.DinePostController do
     render(conn, "new.html", changeset: changeset)
   end
 
-  def create(conn, %{"dine_post" => dine_post_params}) do
+  def create(conn, %{"country" => country,"dine_post" => dine_post_params}) do
+    IO.puts("country is #{country}")
+    country_id = Location.get_country_id(country)
+    IO.puts("country id is #{country_id}")
     case Feed.create_dine_post(dine_post_params) do
       {:ok, dine_post} ->
         conn
