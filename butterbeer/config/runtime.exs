@@ -16,7 +16,7 @@ if config_env() == :prod do
 
   config :butterbeer, Butterbeer.Repo,
     # ssl: true,
-    # socket_options: [:inet6],
+    socket_options: [:inet6],
     url: database_url,
     pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10")
 
@@ -32,7 +32,13 @@ if config_env() == :prod do
       You can generate one by calling: mix phx.gen.secret
       """
 
+  app_name =
+    System.get_env("FLY_APP_NAME") ||
+      raise "FLY_APP_NAME not available"
+
   config :butterbeer, ButterbeerWeb.Endpoint,
+    server: true,
+    url: [host: "#{app_name}.fly.dev", port: 80],
     http: [
       # Enable IPv6 and bind on all interfaces.
       # Set it to  {0, 0, 0, 0, 0, 0, 0, 1} for local network only access.
