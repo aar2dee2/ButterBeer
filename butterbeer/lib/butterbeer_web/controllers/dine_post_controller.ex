@@ -17,11 +17,13 @@ defmodule ButterbeerWeb.DinePostController do
 
   def create(conn, %{"country" => country,
                     "admin_area_one" => admin_area_one,
+                    "admin_area_two" => admin_area_two,
                     "dine_post" => dine_post_params}) do
     IO.puts("country is #{country}")
     country_id = Location.get_country_id!(country)
     IO.puts("country id is #{country_id}")
     area_one_id = Location.get_area_one_id!(admin_area_one, country_id)
+    area_two_id = Location.get_area_two_id!(admin_area_two, area_one_id)
     case Feed.create_dine_post(dine_post_params) do
       {:ok, dine_post} ->
         conn

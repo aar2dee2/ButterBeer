@@ -16,11 +16,31 @@ defmodule Butterbeer.Location do
     Repo.all(query) |> Enum.fetch!(0)
   end
 
+  @doc """
+  Fetches the admin_area_one_id from the "areas_level_one" table when long_name and country_id are provided as inputs.
+  If entry does not exist, creates new entry and returns it's id. 
+  """
   def get_area_one_id!(name, country_id) do
     query = from a in "areas_level_one", select: a.id, where: a.country_id == ^country_id and ilike(a.long_name, ^name)
     output = Repo.all(query)
     if output == [] do
       {:ok, new_map} = create_admin_area_one(%{long_name: name, country_id: country_id})
+      new_map.id
+    else
+      Enum.fetch!(output, 0)
+    end
+  end
+
+  @doc """
+  Fetches the admin_area_two_id from the "areas_level_two" table when long_name and country_id are provided as inputs.
+  If entry does not exist, creates new entry and returns it's id. 
+  """
+
+  def get_area_two_id!(name, area_level_one) do
+    query = from a in "areas_level_two", select: a.id, where: a.area_level_one == ^area_level_one and ilike(a.long_name, ^name)
+    output = Repo.all(query)
+    if output == [] do
+      {:ok, new_map} = create_admin_area_two(%{long_name: name, area_level_one: area_level_one})
       new_map.id
     else
       Enum.fetch!(output, 0)
@@ -117,6 +137,7 @@ defmodule Butterbeer.Location do
       %Ecto.Changeset{data: %AdminAreaOne{}}
 
   """
+
   def change_admin_area_one(%AdminAreaOne{} = admin_area_one, attrs \\ %{}) do
     AdminAreaOne.changeset(admin_area_one, attrs)
   end
@@ -132,6 +153,7 @@ defmodule Butterbeer.Location do
       [%AdminAreaTwo{}, ...]
 
   """
+
   def list_areas_level_two do
     Repo.all(AdminAreaTwo)
   end
