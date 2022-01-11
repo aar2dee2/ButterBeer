@@ -13,7 +13,7 @@ defmodule Butterbeer.Location.AdminAreaOne do
   @doc false
   def changeset(admin_area_one, attrs) do
     admin_area_one
-    |> cast(attrs, [:long_name, :short_name])
-    |> validate_required([:long_name, :short_name])
+    |> cast(attrs, [:long_name, :country_id])
+    |> validate_required([:long_name, :country_id])
   end
 end

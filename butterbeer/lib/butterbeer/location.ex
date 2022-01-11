@@ -11,11 +11,21 @@ defmodule Butterbeer.Location do
   @doc """
   Fetches the country_id from the countries table when country name is provided as input
   """
-  def get_country_id(name) do
+  def get_country_id!(name) do
     query = from c in "countries", select: c.country_id, where: ilike(c.country_or_area, ^name)
     Repo.all(query) |> Enum.fetch!(0)
   end
 
+  def get_area_one_id!(name, country_id) do
+    query = from a in "areas_level_one", select: a.id, where: a.country_id == ^country_id and ilike(a.long_name, ^name)
+    output = Repo.all(query)
+    if output == [] do
+      {:ok, new_map} = create_admin_area_one(%{long_name: name, country_id: country_id})
+      new_map.id
+    else
+      Enum.fetch!(output, 0)
+    end
+  end
 
   @doc """
   Returns the list of areas_level_one.
