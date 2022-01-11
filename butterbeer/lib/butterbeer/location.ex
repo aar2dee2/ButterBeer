@@ -18,7 +18,7 @@ defmodule Butterbeer.Location do
 
   @doc """
   Fetches the admin_area_one_id from the "areas_level_one" table when long_name and country_id are provided as inputs.
-  If entry does not exist, creates new entry and returns it's id. 
+  If entry does not exist, creates new entry and returns its id. 
   """
   def get_area_one_id!(name, country_id) do
     query = from a in "areas_level_one", select: a.id, where: a.country_id == ^country_id and ilike(a.long_name, ^name)
@@ -33,7 +33,7 @@ defmodule Butterbeer.Location do
 
   @doc """
   Fetches the admin_area_two_id from the "areas_level_two" table when long_name and country_id are provided as inputs.
-  If entry does not exist, creates new entry and returns it's id. 
+  If entry does not exist, creates new entry and returns its id. 
   """
 
   def get_area_two_id!(name, area_level_one) do

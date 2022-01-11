@@ -11,8 +11,8 @@
   <input type="hidden" id="locality" name="locality">
   <input type="hidden" id="neighborhood" name="neighborhood">
   <input type="hidden" id="place_name" name="place_name">
-  <input type="hidden" id="place_id" name="place_id">
-  <input type="hidden" id="url" name="url">
+  <input type="hidden" id="google_maps_place_id" name="google_maps_place_id">
+  <input type="hidden" id="google_maps_url" name="google_maps_url">
 
   <script>
     let autocomplete;
@@ -23,7 +23,7 @@
         document.getElementById("autocomplete"),
         {
           types: ["establishment"],
-          fields: ["place_id", "address_component", "name", "url", "formatted_phone_number", "international_phone_number", "website"],
+          fields: ["google_maps_place_id", "address_component", "name", "google_maps_url", "formatted_phone_number", "international_phone_number", "website"],
         }
       );
 
@@ -34,9 +34,9 @@
       place = autocomplete.getPlace();
       console.log("place is");
       console.log(place);
-      document.querySelector("#url").value = place.url;
+      document.querySelector("#google_maps_url").value = place.google_maps_url;
       document.querySelector("#place_name").value = place.name;
-      document.querySelector("#place_id").value = place.place_id;
+      document.querySelector("#google_maps_place_id").value = place.google_maps_place_id;
 
       fillInAddress(place);
       
