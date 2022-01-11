@@ -13,7 +13,7 @@ defmodule Butterbeer.Location.Locality do
   @doc false
   def changeset(locality, attrs) do
     locality
-    |> cast(attrs, [:long_name, :short_name])
-    |> validate_required([:long_name, :short_name])
+    |> cast(attrs, [:long_name, :area_level_two])
+    |> validate_required([:long_name, :area_level_two])
   end
 end

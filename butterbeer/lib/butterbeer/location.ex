@@ -46,6 +46,38 @@ defmodule Butterbeer.Location do
       Enum.fetch!(output, 0)
     end
   end
+  
+  @doc """
+  Fetches the locality_id from the "localities" table when long_name and admin_area_two_id are provided as inputs.
+  If entry does not exist, creates new entry and returns its id. 
+  """
+
+  def get_locality_id!(name, area_level_two) do
+    query = from a in "localities", select: a.id, where: a.area_level_two == ^area_level_two and ilike(a.long_name, ^name)
+    output = Repo.all(query)
+    if output == [] do
+      {:ok, new_map} = create_locality(%{long_name: name, area_level_two: area_level_two})
+      new_map.id
+    else
+      Enum.fetch!(output, 0)
+    end
+  end
+
+  @doc """
+  Fetches the neighborhood_id from the "neighborhoods" table when long_name and locality_id are provided as inputs.
+  If entry does not exist, creates new entry and returns its id. 
+  """
+
+  def get_neighborhood_id!(name, locality_id) do
+    query = from a in "neighborhoods", select: a.id, where: a.locality_id == ^locality_id and ilike(a.long_name, ^name)
+    output = Repo.all(query)
+    if output == [] do
+      {:ok, new_map} = create_neighborhood(%{long_name: name, locality_id: locality_id})
+      new_map.id
+    else
+      Enum.fetch!(output, 0)
+    end
+  end
 
   @doc """
   Returns the list of areas_level_one.

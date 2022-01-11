@@ -13,7 +13,7 @@ defmodule Butterbeer.Location.Neighborhood do
   @doc false
   def changeset(neighborhood, attrs) do
     neighborhood
-    |> cast(attrs, [:long_name, :short_name])
-    |> validate_required([:long_name, :short_name])
+    |> cast(attrs, [:long_name, :locality_id])
+    |> validate_required([:long_name, :locality_id])
   end
 end
