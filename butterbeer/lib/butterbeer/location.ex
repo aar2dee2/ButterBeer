@@ -80,7 +80,23 @@ defmodule Butterbeer.Location do
   end
 
   @doc """
-  Returns the list of areas_level_one.
+  Fetches the place_id from the "places" table when long_name and locality_id are provided as inputs.
+  If entry does not exist, creates new entry and returns its id. 
+  """
+
+  def get_place_id!(%{name: name, google_maps_link: google_maps_link, area_two_id: area_two_id, url: url, neighborhood: neighborhood} = params) do
+    query = from a in "places", select: a.id, where: a.area_two_id == ^area_two_id_id and ilike(a.google_maps_link, ^google_maps_link)
+    output = Repo.all(query)
+    if output == [] do
+      {:ok, new_map} = create_place(params)
+      new_map.id
+    else
+      Enum.fetch!(output, 0)
+    end
+  end
+
+  @doc """
+  Returns the list of areas_level_one. (administrative areas level 1)
 
   ## Examples
 
@@ -138,6 +154,7 @@ defmodule Butterbeer.Location do
       {:error, %Ecto.Changeset{}}
 
   """
+
   def update_admin_area_one(%AdminAreaOne{} = admin_area_one, attrs) do
     admin_area_one
     |> AdminAreaOne.changeset(attrs)
@@ -204,6 +221,7 @@ defmodule Butterbeer.Location do
       ** (Ecto.NoResultsError)
 
   """
+
   def get_admin_area_two!(id), do: Repo.get!(AdminAreaTwo, id)
 
   @doc """
@@ -218,6 +236,7 @@ defmodule Butterbeer.Location do
       {:error, %Ecto.Changeset{}}
 
   """
+
   def create_admin_area_two(attrs \\ %{}) do
     %AdminAreaTwo{}
     |> AdminAreaTwo.changeset(attrs)
@@ -254,6 +273,7 @@ defmodule Butterbeer.Location do
       {:error, %Ecto.Changeset{}}
 
   """
+
   def delete_admin_area_two(%AdminAreaTwo{} = admin_area_two) do
     Repo.delete(admin_area_two)
   end
@@ -267,6 +287,7 @@ defmodule Butterbeer.Location do
       %Ecto.Changeset{data: %AdminAreaTwo{}}
 
   """
+
   def change_admin_area_two(%AdminAreaTwo{} = admin_area_two, attrs \\ %{}) do
     AdminAreaTwo.changeset(admin_area_two, attrs)
   end
@@ -282,6 +303,7 @@ defmodule Butterbeer.Location do
       [%Locality{}, ...]
 
   """
+
   def list_localities do
     Repo.all(Locality)
   end
@@ -300,6 +322,7 @@ defmodule Butterbeer.Location do
       ** (Ecto.NoResultsError)
 
   """
+
   def get_locality!(id), do: Repo.get!(Locality, id)
 
   @doc """
@@ -332,6 +355,7 @@ defmodule Butterbeer.Location do
       {:error, %Ecto.Changeset{}}
 
   """
+
   def update_locality(%Locality{} = locality, attrs) do
     locality
     |> Locality.changeset(attrs)
@@ -350,6 +374,7 @@ defmodule Butterbeer.Location do
       {:error, %Ecto.Changeset{}}
 
   """
+
   def delete_locality(%Locality{} = locality) do
     Repo.delete(locality)
   end
@@ -363,6 +388,7 @@ defmodule Butterbeer.Location do
       %Ecto.Changeset{data: %Locality{}}
 
   """
+
   def change_locality(%Locality{} = locality, attrs \\ %{}) do
     Locality.changeset(locality, attrs)
   end
@@ -378,6 +404,7 @@ defmodule Butterbeer.Location do
       [%Neighborhood{}, ...]
 
   """
+
   def list_neighborhoods do
     Repo.all(Neighborhood)
   end
@@ -396,6 +423,7 @@ defmodule Butterbeer.Location do
       ** (Ecto.NoResultsError)
 
   """
+
   def get_neighborhood!(id), do: Repo.get!(Neighborhood, id)
 
   @doc """
@@ -410,6 +438,7 @@ defmodule Butterbeer.Location do
       {:error, %Ecto.Changeset{}}
 
   """
+
   def create_neighborhood(attrs \\ %{}) do
     %Neighborhood{}
     |> Neighborhood.changeset(attrs)
@@ -428,6 +457,7 @@ defmodule Butterbeer.Location do
       {:error, %Ecto.Changeset{}}
 
   """
+
   def update_neighborhood(%Neighborhood{} = neighborhood, attrs) do
     neighborhood
     |> Neighborhood.changeset(attrs)
@@ -446,6 +476,7 @@ defmodule Butterbeer.Location do
       {:error, %Ecto.Changeset{}}
 
   """
+
   def delete_neighborhood(%Neighborhood{} = neighborhood) do
     Repo.delete(neighborhood)
   end
@@ -459,6 +490,7 @@ defmodule Butterbeer.Location do
       %Ecto.Changeset{data: %Neighborhood{}}
 
   """
+
   def change_neighborhood(%Neighborhood{} = neighborhood, attrs \\ %{}) do
     Neighborhood.changeset(neighborhood, attrs)
   end
@@ -474,6 +506,7 @@ defmodule Butterbeer.Location do
       [%Place{}, ...]
 
   """
+
   def list_places do
     Repo.all(Place)
   end
@@ -492,6 +525,7 @@ defmodule Butterbeer.Location do
       ** (Ecto.NoResultsError)
 
   """
+
   def get_place!(id), do: Repo.get!(Place, id)
 
   @doc """
@@ -506,6 +540,7 @@ defmodule Butterbeer.Location do
       {:error, %Ecto.Changeset{}}
 
   """
+
   def create_place(attrs \\ %{}) do
     %Place{}
     |> Place.changeset(attrs)

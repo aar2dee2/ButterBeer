@@ -22,7 +22,7 @@ defmodule ButterbeerWeb.DinePostController do
                     "locality" => locality,
                     "google_maps_place_id" => google_maps_place_id,
                     "place_name" => place_name,
-                    "google_maps_url" => url,
+                    "google_maps_url" => google_maps_url,
                     "dine_post" => dine_post_params}) do
     IO.puts("country is #{country}")
     country_id = Location.get_country_id!(country)
@@ -32,13 +32,15 @@ defmodule ButterbeerWeb.DinePostController do
     area_two_id = Location.get_area_two_id!(admin_area_two, area_one_id)
     IO.puts("area_two is #{admin_area_two} and its id is #{area_two_id}")
     #get locality_id, if locality name in params
-    if length(locality) > 0 do
-      locality_id = Location.get_locality_id!(locality, area_two_id)
-      #get neighborhood_id, if neighborhood name in params
-      if length(neighborhood) > 0 do
-        neighborhood_id = Location.get_neighborhood_id!(neighborhood, locality_id)
-      end
-    end
+    locality_id = if length(locality) > 0 do
+                    Location.get_locality_id!(locality, area_two_id)
+                  end
+    #get neighborhood_id, if neighborhood name in params
+    neighborhood_id = if length(neighborhood) > 0 do
+                        Location.get_neighborhood_id!(neighborhood, locality_id)
+                      end
+    #get place_id
+    place_id = Location.get_place_id!(%{name: place_name, google_maps_link: google_maps_url, area_two_id: area_two_id, url: nil, neighborhood: neighborhood_id})
 
     case Feed.create_dine_post(dine_post_params) do
       {:ok, dine_post} ->
