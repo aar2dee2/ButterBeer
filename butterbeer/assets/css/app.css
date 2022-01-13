@@ -1,6 +1,26 @@
 /* This file is for your main application CSS */
 @import "./phoenix.css";
 
+.dinepost {
+      width: 768px;
+      border: 0.2px solid ;
+      border-color: #e3e3e3;
+      border-style: inset;
+      padding: 8px;
+      margin: 8px;
+    }
+
+  .dinepost-avatar {
+  vertical-align: middle;
+  width: 50px;
+  height: 50px;
+  background-color: #c3f73a;
+  }
+
+  .dinepost-column {
+  margin: auto;
+  }
+
 .dark-overlay-1 {
   text-align: center;
   border: 1px solid #e3e3e3;

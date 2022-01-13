@@ -1,36 +1,52 @@
-<h1>Feed</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Place</th>
-      <th>Description</th>
-      <th>User</th>
-      <th>View on Google Maps</th>
-    </tr>
-  </thead>
-  <tbody>
-<%= for dine_post <- @dineposts do %>
-    <tr>
-      <td><%= dine_post.place_id %></td>
-      <td><%= dine_post.description %></td>
-      <td><%= dine_post.user_id %></td>
-      <td><%= %></td>
-      <!--
-      removing dine_post.url from the row above - either user input for url be taken, or this can be linked to url from places table based on the place_id
-      -->
-      <td>
-        <span><%= link "Show", to: Routes.dine_post_path(@conn, :show, dine_post) %></span>
-        <span><%= link "Edit", to: Routes.dine_post_path(@conn, :edit, dine_post) %></span>
-        <span><%= link "Delete", to: Routes.dine_post_path(@conn, :delete, dine_post), method: :delete, data: [confirm: "Are you sure?"] %></span>
-      </td>
-    </tr>
-<% end %>
-  </tbody>
-</table>
+<h1 align="center">Feed</h1>
+<script src="https://kit.fontawesome.com/d07169d6d4.js" crossorigin="anonymous"></script>
 
 <span>
 <a href={Routes.dine_post_path(@conn, :new)}>
   <button type="button">Add a place</button>
 </a>
 </span>
+<body>
+<%= for dine_post <- @dineposts do %>
+    
+    <div id={"dine_post-" <> Integer.to_string(dine_post.id)} class="dinepost">
+      <div class="row">
+        <div class="dinepost-column column-10">
+          <div class="dinepost-avatar"></div>
+        </div>
+        <div class="dinepost-column column-80 post-body">
+          <b>@<%= dine_post.place_id %></b>
+          <br/>
+          <%= dine_post.description %>
+        </div>
+        <div class="dinepost-column column-10 post-body">
+          <a href={}>
+            <i class="fas fa-map-marker-alt" size="5x"></i>
+          </a>
+          
+        </div>
+      </div>
+
+      <div class="row">
+        
+        <div class="dinepost-column">
+          <a href="#" phx-click="like" phx-target={}>
+            <i class="far fa-heart"></i> <%= dine_post.id %>
+          </a>
+        </div>
+        <div class="dinepost-column">
+          <a href="#" phx-click="repost" phx-target={}>
+            <i class="fa fa-retweet"></i> <%= dine_post.id %>
+          </a>
+        </div>
+
+        <div class="dinepost-column">
+          
+         
+
+        </div>
+      </div> 
+    </div>
+<% end %>
+</body>
+
