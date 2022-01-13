@@ -23,7 +23,7 @@
         document.getElementById("autocomplete"),
         {
           types: ["establishment"],
-          fields: ["google_maps_place_id", "address_component", "name", "google_maps_url", "formatted_phone_number", "international_phone_number", "website"],
+          fields: ["place_id", "address_component", "name", "url", "formatted_phone_number", "international_phone_number", "website"],
         }
       );
 
@@ -34,9 +34,9 @@
       place = autocomplete.getPlace();
       console.log("place is");
       console.log(place);
-      document.querySelector("#google_maps_url").value = place.google_maps_url;
+      document.querySelector("#google_maps_url").value = place.url;
       document.querySelector("#place_name").value = place.name;
-      document.querySelector("#google_maps_place_id").value = place.google_maps_place_id;
+      document.querySelector("#google_maps_place_id").value = place.place_id;
 
       fillInAddress(place);
       
