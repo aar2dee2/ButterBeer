@@ -32,17 +32,17 @@ defmodule ButterbeerWeb.DinePostController do
     area_two_id = Location.get_area_two_id!(admin_area_two, area_one_id)
     IO.puts("area_two is #{admin_area_two} and its id is #{area_two_id}")
     #get locality_id, if locality name in params
-    locality_id = if length(locality) > 0 do
+    locality_id = if String.length(locality) > 0 do
                     Location.get_locality_id!(locality, area_two_id)
                   end
     IO.puts("locality is #{locality} and its id is #{locality_id}")
     #get neighborhood_id, if neighborhood name in params
-    neighborhood_id = if length(neighborhood) > 0 do
+    neighborhood_id = if String.length(neighborhood) > 0 do
                         Location.get_neighborhood_id!(neighborhood, locality_id)
                       end
     IO.puts("neighborhood is #{neighborhood} and its id is #{neighborhood_id}")
     #get place_id
-    place_id = Location.get_place_id!(%{name: place_name, google_maps_link: google_maps_url, area_two_id: area_two_id, url: nil, neighborhood: neighborhood_id})
+    place_id = Location.get_place_id!(%{name: place_name, google_maps_link: google_maps_url, area_level_two_id: area_two_id, url: nil, neighborhood: neighborhood_id})
     IO.puts("place is #{place_name} and its id is #{place_id}")
     case Feed.create_dine_post(Map.put(dine_post_params, "place_id", place_id)) do
       {:ok, dine_post} ->

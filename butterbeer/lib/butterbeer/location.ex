@@ -84,8 +84,8 @@ defmodule Butterbeer.Location do
   If entry does not exist, creates new entry and returns its id. 
   """
 
-  def get_place_id!(%{name: name, google_maps_link: google_maps_link, area_two_id: area_two_id, url: url, neighborhood: neighborhood} = params) do
-    query = from a in "places", select: a.id, where: a.area_two_id == ^area_two_id and ilike(a.google_maps_link, ^google_maps_link)
+  def get_place_id!(%{name: name, google_maps_link: google_maps_link, area_level_two_id: area_level_two, url: url, neighborhood: neighborhood} = params) do
+    query = from a in "places", select: a.id, where: a.area_level_two_id == ^area_level_two and ilike(a.google_maps_link, ^google_maps_link)
     output = Repo.all(query)
     if output == [] do
       {:ok, new_map} = create_place(params)

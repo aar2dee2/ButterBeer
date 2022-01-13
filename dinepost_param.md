@@ -1,5 +1,4 @@
-Parameters: %{
-"_csrf_token" => "AEUFdxgrdABjBVkEGCd1J283HSdDMRA6M2jFtAFz0_8BAs3k9vHFtAiB", 
+Parameters: %{ 
 "admin_area_one" => "Delhi", 
 "admin_area_two" => "South Delhi", 
 "country" => "India", 

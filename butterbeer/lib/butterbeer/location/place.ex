@@ -16,7 +16,7 @@ defmodule Butterbeer.Location.Place do
   @doc false
   def changeset(place, attrs) do
     place
-    |> cast(attrs, [:name, :google_maps_link, :area_two_id, :url, :neighborhood])
-    |> validate_required([:name, :google_maps_link, :area_two_id])
+    |> cast(attrs, [:name, :google_maps_link, :area_level_two_id, :url, :neighborhood])
+    |> validate_required([:name, :google_maps_link, :area_level_two_id])
   end
 end
