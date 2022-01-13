@@ -14,8 +14,8 @@ defmodule Butterbeer.Feed.DinePost do
   @doc false
   def changeset(dine_post, attrs) do
     dine_post
-    |> cast(attrs, [:description])
-    |> validate_required([:description])
+    |> cast(attrs, [:description, :place_id])
+    |> validate_required([:description, :place_id])
   end
 
   #The cast function above so make changes to several tables in the db - 

@@ -42,7 +42,7 @@ defmodule ButterbeerWeb.DinePostController do
     #get place_id
     place_id = Location.get_place_id!(%{name: place_name, google_maps_link: google_maps_url, area_two_id: area_two_id, url: nil, neighborhood: neighborhood_id})
 
-    case Feed.create_dine_post(dine_post_params) do
+    case Feed.create_dine_post(Map.put(dine_post_params, "place_id", place_id)) do
       {:ok, dine_post} ->
         conn
         |> put_flash(:info, "Dine post created successfully.")
