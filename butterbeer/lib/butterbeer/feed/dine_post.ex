@@ -5,9 +5,12 @@ defmodule Butterbeer.Feed.DinePost do
   schema "dineposts" do
     field :created_at, :naive_datetime
     field :description, :string
-    field :place_id, :id
-    field :user_id, :id
-
+    #field :place_id, :id
+    #field :user_id, :id
+    
+    belongs_to :user, Butterbeer.Accounts.User
+    belongs_to :place, Butterbeer.Location.Place
+    #Refer page 226 (of pdf) of Programming Phoenix book
     timestamps()
   end
 
