@@ -39,7 +39,7 @@ blockquote *:last-child{
 .button,button,input[type='button'],input[type='reset'],input[type='submit']{
   background-color:#bb86fc;
   border:0.1rem solid #bb86fc;
-  border-radius:.4rem;
+  border-radius: 1.6rem;
   color:#000;
   cursor:pointer;
   display:inline-block;

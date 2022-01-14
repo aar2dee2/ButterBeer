@@ -4,11 +4,18 @@
 </section>
 <!-- edit below this -->
 <section class="row">
-  <article class="column">
-    <h2>Resources</h2>
-    
-  </article>
-  <article class="column">
-    <h2>Help</h2>
-  </article>
+  <%= if @current_user do %>
+    <li><%= "Welcome" <> @current_user.username %></li>
+  <% else %>
+    <article class="column" align="center">
+      <a href={Routes.user_registration_path(@conn, :new)}>
+        <button>Register</button>
+      </a>
+    </article>
+    <article class="column" align="center">
+      <a href={Routes.user_session_path(@conn, :new)}>
+        <button>Log In</button>
+      </a>
+    </article>
+  <% end %>  
 </section>
