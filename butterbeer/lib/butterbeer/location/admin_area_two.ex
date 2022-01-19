@@ -5,8 +5,9 @@ defmodule Butterbeer.Location.AdminAreaTwo do
   schema "areas_level_two" do
     field :long_name, :string
     field :short_name, :string
-    field :area_level_one, :id
+    #field :area_level_one, :id
 
+    belongs_to :area_level_one, Butterbeer.Location.AdminAreaOne
     timestamps()
   end
 

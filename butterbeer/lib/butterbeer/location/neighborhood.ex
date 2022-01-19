@@ -5,8 +5,9 @@ defmodule Butterbeer.Location.Neighborhood do
   schema "neighborhoods" do
     field :long_name, :string
     field :short_name, :string
-    field :locality_id, :id
+    #field :locality_id, :id
 
+    belongs_to :locality, Butterbeer.Location.Locality
     timestamps()
   end
 
