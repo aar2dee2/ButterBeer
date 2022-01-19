@@ -18,7 +18,7 @@ defmodule Butterbeer.Feed do
 
   """
   def list_dineposts do
-    Repo.all(DinePost)
+    Repo.all(DinePost, preload: [:places, :users])
   end
 
   @doc """
